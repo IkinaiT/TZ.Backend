@@ -66,7 +66,10 @@ namespace TZ.Backend.Services.Runtime
             if(tempBook == null) 
                 return false;
 
-            tempBook.Count--;
+            if (tempBook.Count > 0)
+                tempBook.Count--;
+            else
+                return false;
 
             await _context.SaveChangesAsync();
 

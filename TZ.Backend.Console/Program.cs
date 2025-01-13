@@ -1,7 +1,55 @@
 ﻿using TZ.Backend.Console.Adapter.Interfaces;
 using TZ.Backend.Console.Adapter.Runtime;
 
-IProduct _booksProduct = new BooksAdapter("Host=localhost;Username=postgres;Password=admin;Database=TZ_Backend;Pooling=True");
+var host = "localhost";
+var username = "postgres";
+var password = "admin";
+
+while (true)
+{
+    var ended = false;
+
+    Console.WriteLine("Configurate connection string? [y/n]");
+    switch (Console.ReadLine()?.ToLower())
+    {
+        case "y":
+            string? temp = string.Empty;
+
+            Console.Write("Host >>");
+            temp = Console.ReadLine();
+
+            host = string.IsNullOrEmpty(temp) ? host : temp;
+
+            Console.Write("Username >>");
+            temp = Console.ReadLine();
+
+            username = string.IsNullOrEmpty(temp) ? host : temp;
+
+            Console.Write("Password >>");
+            temp = Console.ReadLine();
+
+            password = string.IsNullOrEmpty(temp) ? host : temp;
+
+            Console.WriteLine("OK\n\n");
+
+            ended = true;
+
+            break;
+
+        case "n":
+            ended = true;
+            break;
+
+        default:
+            Console.WriteLine("Incorrect input");
+            break;
+    }
+
+    if (ended)
+        break;
+}
+
+IProduct _booksProduct = new BooksAdapter($"Host={host};Username={username};Password={password};Database=TZ_Backend;Pooling=True");
 bool endSession = false;
 
 await _booksProduct.FillDatabase();

@@ -120,7 +120,7 @@ namespace TZ.Backend.Console.Adapter.Runtime
                 await _booksService.AddBook(new()
                 {
                     AuthorId = 2,
-                    Title = "",
+                    Title = "I am madness",
                     Count = 10,
                     Date = new(2022, 1, 1)
                 });
@@ -145,7 +145,7 @@ namespace TZ.Backend.Console.Adapter.Runtime
             if (await _booksService.BuyBook(intId))
                 return $"Complited, the book {id} was bought";
 
-            return $"Error, book {id} not found";
+            return $"Error, book {id} not found or count < 0";
         }
 
         public async Task<string> Get(params string?[] flags)
